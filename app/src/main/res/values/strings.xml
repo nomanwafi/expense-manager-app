@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Expense Manager</string>
+    <string name="web_url">https://expense.nomananik.com/</string>
+
+    <string name="exit_dialog_title">Exit App?</string>
+    <string name="exit_dialog_message">Are you sure you want to exit Expense Manager?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+
+    <string name="no_internet_title">No Internet Connection</string>
+    <string name="no_internet_message">Please check your network settings and try again.</string>
+    <string name="retry">Retry</string>
+
+    <string name="permission_denied_camera">Camera permission is required to take photos.</string>
+    <string name="permission_denied_storage">Storage permission is required to select files.</string>
+    <string name="permission_denied_notifications">Notification permission lets us alert you when downloads finish.</string>
+
+    <string name="download_started">Downloading %1$s…</string>
+    <string name="download_complete_title">Download complete</string>
+    <string name="download_failed">Download failed</string>
+
+    <string name="channel_downloads_name">Downloads</string>
+    <string name="channel_downloads_desc">Notifications about file downloads</string>
+
+    <string name="maintenance_default_title">We\'ll be right back</string>
+    <string name="maintenance_default_message">Expense Manager is currently undergoing maintenance. Please check back shortly.</string>
+    <string name="check_again">Check Again</string>
+
+    <string name="update_required_title">Update Required</string>
+    <string name="update_required_default_message">A new version of Expense Manager is available. Please update to continue.</string>
+    <string name="update_now">Update Now</string>
+
+    <string name="announcement_default_title">Announcement</string>
+    <string name="ok">OK</string>
+</resources>

@@ -1,0 +1,17 @@
+{
+  "website_url": "https://expense.nomananik.com/",
+
+  "maintenance_mode": false,
+  "maintenance_title": "We'll be right back",
+  "maintenance_message": "Expense Manager is currently undergoing maintenance. Please check back shortly.",
+
+  "force_update": false,
+  "min_supported_version_code": 1,
+  "latest_version_code": 1,
+  "update_url": "https://play.google.com/store/apps/details?id=com.nomananik.expensemanager",
+  "update_message": "A new version of Expense Manager is available.",
+
+  "announcement_enabled": false,
+  "announcement_title": "Announcement",
+  "announcement_message": ""
+}
