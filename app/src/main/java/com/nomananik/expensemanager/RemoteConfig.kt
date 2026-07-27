@@ -34,11 +34,18 @@ data class RemoteConfig(
 ) {
     companion object {
 
-        // ⚠️ IMPORTANT: point this at YOUR repo (username/repo/branch), and keep a
-        // remote_config.json file at that exact path. Raw GitHub URLs look like:
-        // https://raw.githubusercontent.com/<username>/<repo>/<branch>/remote_config.json
-        private const val CONFIG_URL =
-            "https://raw.githubusercontent.com/nomanwafi/expense-manager-app/main/remote_config.json"
+        // ⚠️ IMPORTANT: point this at YOUR repo (owner/repo/branch/path).
+        // We deliberately use the GitHub API (api.github.com) instead of raw.githubusercontent.com.
+        // raw.githubusercontent.com sits behind a CDN that can cache a stale copy for ~5 minutes
+        // per device, even with cache-busting query params — which made maintenance/announcement
+        // changes take minutes (or a force-stop) to show up. api.github.com is not behind that
+        // same cache, so changes are reflected on the very next app open.
+        private const val CONFIG_OWNER = "nomanwafi"
+        private const val CONFIG_REPO = "expense-manager-app"
+        private const val CONFIG_BRANCH = "main"
+        private const val CONFIG_PATH = "remote_config.json"
+        private const val CONFIG_API_URL =
+            "https://api.github.com/repos/$CONFIG_OWNER/$CONFIG_REPO/contents/$CONFIG_PATH?ref=$CONFIG_BRANCH"
 
         private const val CONNECT_TIMEOUT_MS = 4000
         private const val READ_TIMEOUT_MS = 4000
@@ -62,12 +69,14 @@ data class RemoteConfig(
         suspend fun fetch(context: Context): RemoteConfig = withContext(Dispatchers.IO) {
             val fallback = default(context)
             try {
-                // Cache-busting query param so GitHub's CDN doesn't serve a stale copy.
-                val url = URL("$CONFIG_URL?t=${System.currentTimeMillis()}")
-                val connection = url.openConnection() as HttpURLConnection
+                val connection = URL(CONFIG_API_URL).openConnection() as HttpURLConnection
                 connection.connectTimeout = CONNECT_TIMEOUT_MS
                 connection.readTimeout = READ_TIMEOUT_MS
                 connection.requestMethod = "GET"
+                // Ask the Contents API to return the raw file body directly (not base64-wrapped JSON).
+                connection.setRequestProperty("Accept", "application/vnd.github.raw+json")
+                connection.setRequestProperty("X-GitHub-Api-Version", "2022-11-28")
+                connection.setRequestProperty("Cache-Control", "no-cache")
 
                 val responseCode = connection.responseCode
                 if (responseCode != HttpURLConnection.HTTP_OK) {
