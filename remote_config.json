@@ -1,7 +1,7 @@
 {
   "website_url": "https://ecom.nomananik.com/",
 
-  "maintenance_mode": true,
+  "maintenance_mode": false,
   "maintenance_title": "We'll be right back",
   "maintenance_message": "Expense Manager is currently undergoing maintenance. Please check back shortly.",
 
